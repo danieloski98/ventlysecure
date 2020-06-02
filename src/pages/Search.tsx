@@ -5,15 +5,23 @@ import {
   StyleSheet,
   TextInput,
   ActivityIndicator,
+  Animated,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import ProfileCard from '../components/Search/ProfileCard';
 
 const Search = () => {
   const [loading, setLoading] = useState(false);
-
+  const searchbox = new Animated.Value(-100);
+  const searchboxan = Animated.timing(searchbox, {
+    toValue: 30,
+    duration: 500,
+    useNativeDriver: false,
+  });
   useEffect(() => {
-    setLoading(true);
+    searchboxan.start(() => {
+      setLoading(true);
+    });
     const timer = setTimeout(() => {
       setLoading(false);
     }, 3000);
@@ -31,14 +39,15 @@ const Search = () => {
 
   return (
     <View style={style.parent}>
-      <View style={style.inputContainer}>
+      <Animated.View
+        style={[style.inputContainer, {transform: [{translateY: searchbox}]}]}>
         <TextInput
           placeholder="Search by email or username"
           placeholderTextColor="white"
           style={style.input}
         />
         <Icon name="search" size={24} color="white" style={style.icon} />
-      </View>
+      </Animated.View>
       <View style={style.contentContainer}>
         {loading ? spinner : <ProfileCard />}
       </View>
@@ -54,7 +63,6 @@ const style = StyleSheet.create({
   inputContainer: {
     display: 'flex',
     flexDirection: 'row',
-    marginTop: 30,
   },
   input: {
     width: '90%',
@@ -87,6 +95,7 @@ const style = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
+    marginTop: 20,
   },
   contentContainer: {
     marginTop: 40,

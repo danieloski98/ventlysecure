@@ -6,11 +6,13 @@ import {
   StyleSheet,
   Image,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import ViewPager from '@react-native-community/viewpager';
 import LinearGradient from 'react-native-linear-gradient';
 import {TouchableHighlight} from 'react-native-gesture-handler';
+import Scanner from '../pages/scanner';
 
 const Dashboard = ({navigation}: {navigation: any}) => {
   return (
@@ -32,10 +34,12 @@ const Dashboard = ({navigation}: {navigation: any}) => {
         />
       </View>
       <View style={style.scannerarea}>
-        <View style={style.scannerbox}>
+        <TouchableOpacity
+          style={style.scannerbox}
+          onPress={() => navigation.navigate('scanner')}>
           <Icon name="camera" size={100} color="white" />
           <Text style={style.scannerboxText}>Tap to Scan Event Code</Text>
-        </View>
+        </TouchableOpacity>
       </View>
       <View style={style.activityview}>
         <Text style={style.activityText}>Analytics</Text>
@@ -89,9 +93,11 @@ const Dashboard = ({navigation}: {navigation: any}) => {
           </ScrollView>
         </View>
         <View style={style.logoutcontainer}>
-          <TouchableHighlight onPress={navigation.navigate('home')}>
+          <TouchableOpacity
+            style={style.logoutBtn}
+            onPress={() => navigation.navigate('home')}>
             <Text style={style.logoutText}>Logout</Text>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -122,6 +128,7 @@ const style = StyleSheet.create({
   },
   scannerarea: {
     height: '50%',
+    width: '90%',
     display: 'flex',
     borderRadius: 5,
     backgroundColor: '#2A2A2A',
@@ -132,9 +139,12 @@ const style = StyleSheet.create({
     marginTop: '10%',
   },
   scannerbox: {
+    width: '100%',
+    height: '100%',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: 5,
   },
   scannerboxText: {
     color: 'white',
@@ -176,6 +186,11 @@ const style = StyleSheet.create({
   },
   logoutcontainer: {
     width: '89%',
+    height: 70,
+  },
+  logoutBtn: {
+    width: '100%',
+    height: '100%',
   },
   logoutText: {
     marginTop: 30,

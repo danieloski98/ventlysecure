@@ -15,6 +15,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Search from './pages/Search';
+import Scanner from './pages/scanner';
 
 const Stack = createStackNavigator();
 
@@ -35,6 +36,11 @@ const App = () => {
         <Stack.Screen
           name="search"
           component={Search}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="scanner"
+          component={Scanner}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

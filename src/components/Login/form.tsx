@@ -40,7 +40,7 @@ export default function form(props: any) {
                       style.input,
                       email ? style.inputActive : style.inputInactive,
                     ]}
-                    onFocus={() => setEmailInput(!email)}
+                    onFocus={() => setEmailInput(true)}
                     onBlur={() => {
                       setFieldTouched('Email', true);
                       setEmailInput(false);
@@ -65,7 +65,7 @@ export default function form(props: any) {
                       style.input,
                       event ? style.inputActive : style.inputInactive,
                     ]}
-                    onFocus={() => setEventInput(!event)}
+                    onFocus={() => setEventInput(true)}
                     onBlur={() => {
                       setFieldTouched('EventID', true);
                       setEventInput(false);

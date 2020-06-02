@@ -1,7 +1,46 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {View, Text, Image, StyleSheet, TouchableHighlight} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableHighlight,
+  Animated,
+} from 'react-native';
 
 const ProfileCard = () => {
+  const marginTop = new Animated.Value(0);
+  const marginTop2 = new Animated.Value(0);
+  const start2 = Animated.spring(marginTop2, {
+    toValue: -80,
+    bounciness: 10,
+    useNativeDriver: false,
+  });
+  const startAnim = Animated.timing(marginTop, {
+    toValue: -200,
+    useNativeDriver: false,
+  });
+
+  const stop1 = Animated.spring(marginTop, {
+    toValue: 0,
+    bounciness: 10,
+    useNativeDriver: false,
+  });
+
+  const stop2 = Animated.timing(marginTop2, {
+    toValue: 200,
+    useNativeDriver: false,
+  });
+  const signin = () => {
+    startAnim.start();
+    start2.start();
+  };
+
+  const signout = () => {
+    stop1.start();
+    stop2.start();
+  };
   return (
     <View style={style.parent}>
       <View style={style.imageholder}>
@@ -27,9 +66,28 @@ const ProfileCard = () => {
         </View>
       </View>
       <View style={style.btnHolder}>
-        <TouchableHighlight style={style.btn}>
-          <Text style={style.btnText}>Sign In</Text>
-        </TouchableHighlight>
+        <Animated.View
+          style={{
+            width: '100%',
+            height: '100%',
+            transform: [{translateY: marginTop}],
+          }}>
+          <TouchableHighlight style={style.btn} onPress={() => signin()}>
+            <Text style={style.btnText}>Sign In</Text>
+          </TouchableHighlight>
+        </Animated.View>
+        <Animated.View
+          style={{
+            width: '100%',
+            height: '100%',
+            transform: [{translateY: marginTop2}],
+          }}>
+          <TouchableHighlight
+            style={style.signoutbtn}
+            onPress={() => signout()}>
+            <Text style={style.btnText}>Sign out</Text>
+          </TouchableHighlight>
+        </Animated.View>
       </View>
     </View>
   );
@@ -101,16 +159,27 @@ const style = StyleSheet.create({
     height: 60,
   },
   tickettype: {
-    fontSize: 16,
+    fontSize: 14,
     color: 'white',
-    fontWeight: 'bold',
-    marginTop: -12,
+    fontWeight: '500',
+    marginTop: 0,
   },
   btnHolder: {
     width: '100%',
     height: '20%',
+    display: 'flex',
+    overflow: 'hidden',
   },
   btn: {
+    height: '100%',
+    backgroundColor: 'green',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+  },
+  signoutbtn: {
     height: '100%',
     backgroundColor: '#EC2E48',
     display: 'flex',
